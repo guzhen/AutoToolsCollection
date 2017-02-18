@@ -1,0 +1,5 @@
+STFILE="status_file"
+VSERVER="server.com"
+VUSER="username"
+VPASS="password"
+VNAME="vpn_name"
