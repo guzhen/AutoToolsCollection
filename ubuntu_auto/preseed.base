@@ -1,0 +1,47 @@
+## language and locale
+d-i debian-installer/language string en_US:en
+d-i debian-installer/country string CN
+d-i localechooser/preferred-locale string en_US.UTF-8
+
+## keyboard
+d-i console-setup/ask_detect boolean false
+d-i keyboard-configuration/variant select English (US)
+d-i keyboard-configuration/layout select English (US)
+
+## hostname
+netcfg netcfg/get_hostname string ihostname
+
+## account
+user-setup-udeb passwd/user-fullname string iusername
+user-setup-udeb passwd/username string iusername
+user-setup-udeb passwd/user-password password ipassword
+user-setup-udeb passwd/user-password-again password ipassword
+user-setup-udeb user-setup/allow-password-weak boolean true
+user-setup-udeb user-setup/encrypt-home boolean false
+
+## timezone
+d-i time/zone string Asia/Shanghai
+
+## disk
+d-i partman-auto/method string regular
+d-i partman/choose_partition select finish
+partman-base partman/confirm_nooverwrite boolean true
+
+## proxy
+choose-mirror-bin mirror/http/proxy string
+
+## update policy
+pkgsel pkgsel/update-policy select none
+
+## software package
+d-i tasksel/first multiselect standard
+d-i pkgsel/include string openssh-server build-essential cifs-utils
+
+## GRUB on mbr
+grub-installer grub-installer/only_debian boolean true
+
+## reboot message
+finish-install finish-install/reboot_in_progress note
+
+## custom command
+d-i preseed/late_command string in-target curl -o /home/latecmd.sh "iscript_uri" ; in-target chmod 777 /home/latecmd.sh ; in-target bash /home/latecmd.sh
